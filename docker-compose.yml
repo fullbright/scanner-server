@@ -1,0 +1,6 @@
+server:
+    build: .
+    container_name: scanbd_server
+    restart: always
+    volumes:
+        - $PWD/config:/usr/local/scanbd/ 
