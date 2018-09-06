@@ -1,4 +1,4 @@
-from ubuntu
+from ubuntu:16.04
 
 RUN apt-get update 
 RUN apt-get install -y apt-utils net-tools
@@ -16,7 +16,7 @@ RUN ./configure
 RUN make all
 RUN make install
 
-COPY /usr/local/src/scanbd/scanbd_dbus.conf  /etc/dbus-1/system.d/
+#COPY /usr/local/src/scanbd/scanbd_dbus.conf  /etc/dbus-1/system.d/
 
 WORKDIR "/usr/local/src"
 RUN git clone git://git.debian.org/sane/sane-backends.git
