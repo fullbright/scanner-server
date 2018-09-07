@@ -25,3 +25,6 @@ docker-build:
 
 docker-run:
 	docker run -it --rm --device /dev/bus/usb:/dev/bus/usb:rwm -v $(PWD):/myApp -v $(PWD)/config:/config fullbright/scannerserver:$(DOCKER_IMAGE_VERSION) /bin/bash
+
+docker-startapp:
+	docker run -it --rm --device /dev/bus/usb:/dev/bus/usb:rwm -v $(PWD):/myApp -v $(PWD)/config:/config fullbright/scannerserver:$(DOCKER_IMAGE_VERSION) ./start_scan.sh
