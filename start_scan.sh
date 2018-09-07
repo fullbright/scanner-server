@@ -29,8 +29,28 @@ function scan_pages(){
 
 }
 
+function upload_scannedpages(){
+
+    ORIGINAL_FOLDER=$PWD
+    echo "Current folder is $ORIGINAL_FOLDER"
+
+    echo "Moving into the $DEST folder"
+    cd $DEST
+
+    echo "Uploading scanned documents. No downloading"
+    grive -u
+
+    echo "Get back to original folder"
+    cd $ORIGINAL_FOLDER
+}
+
 until [[ $REPLY =~ ^[Nn]$ ]]
 do
   scan_pages
   read -s -p "Scan another document ? [y/N]: " REPLY
 done
+
+# Upload the files to Google Drive
+upload_scannedpages
+
+# End of script
