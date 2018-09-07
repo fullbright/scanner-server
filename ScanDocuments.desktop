@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=ScanHomeDocuments
+Comment=
+Exec=sh -c 'cd /home/sergio/dev/scanbutton; make docker-startapp'
+Terminal=true
+Icon=window-next
+Path=/home/sergio/dev/scanbutton
+StartupNotify=false
