@@ -56,8 +56,8 @@ function scan_pages(){
     convert_jpg_to_pdf "$todayandnow"
 
     echo "Remove temporary scanned tiff files"
-    rm temp/$todayandnow*.jpg
-    rm temp/$todayandnow*.tiff
+    #rm temp/$todayandnow*.jpg
+    #rm temp/$todayandnow*.tiff
 
 }
 
@@ -89,6 +89,6 @@ function interactive_scan(){
 
 }
 
-#interactive_scan
+interactive_scan
 
 # End of script
