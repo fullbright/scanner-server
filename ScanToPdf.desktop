@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Start Scan
+Comment=Starts a program that scans my document into the cloud
+Exec=sh -c 'cd /home/sergio/dev/scanbutton && ./start_scan.sh'
+Icon=window-next
+Path=
+Terminal=true
+StartupNotify=false
