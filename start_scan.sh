@@ -1,94 +1,38 @@
 #!/bin/bash
 
+## Put your sane-detected device name here.
+#DEVICE="snapscan"
+## For network scanners use
+#DEVICE="net:sane.example.org:snapscan"
+#DEVICE='brother4:net1;dev0'
+DEVICE="hpaio:/net/officejet_4500_g510g-m?ip=192.168.1.25&queue=false"
+
+## See scanimage --device $(DEVICE) --help
+SOURCES[0]="FlatBed"
+SOURCES[1]="Automatic Document Feeder(left aligned)"
+SOURCES[2]="Automatic Document Feeder(left aligned,Duplex)"
+SOURCES[3]="Automatic Document Feeder(centrally aligned)"
+SOURCES[4]="Automatic Document Feeder(centrally aligned,Duplex)"
+SOURCES[5]="ADF"
+SOURCE=${SOURCES[3]} # Default
+
+RESOLUTIONS=(100 150 200 300 400 600 1200 2400 4800 9600)
+RESOLUTION=150	# Default
+
+MODES[0]="Black & White"
+MODES[1]="Gray[Error Diffusion]"
+MODES[2]="True Gray"
+MODES[3]="24bit Color"
+MODES[4]="24bit Color[Fast]"
+MODES[5]="Gray"
+MODE=${MODES[2]}	# Default
+
 DEST=temp/dest
 
-function batch_convert_to_jpg(){
+# Import the functions
+. ./scan_functions.sh --source-only
 
-    todayandnow=$1
-    echo "Converting images of batch $todayandnow from tiff to jpg"
-
-    echo "Reduce the weight of the images"
-    for scanfile in temp/$todayandnow*.tiff; do
-        scanfilebase=$(basename "$scanfile")
-        convert "$scanfile" "temp/$scanfilebase.jpg"
-    done
-
-    echo "Conversion finished."
-}
-
-function convert_jpg_to_pdf(){
-
-    echo "Converting jpg from batch $1 to pdf"
-    convert temp/$1*.jpg $DEST/myawesome_scan_$1.pdf
-
-}
-
-function clean_temp_files(){
-
-    todayandnow=$1
-    echo "Remove temporary scanned tiff and jpg files for batch $todayandnow"
-    rm temp/$todayandnow*.jpg
-    rm temp/$todayandnow*.tiff
-
-}
-
-function scan_pages(){
-
-    echo "Generate a token for this scan"
-    todayandnow=$(date +%Y%m%d_%H%M%S)
-    echo "Token is $todayandnow"
-
-    echo "Scanning ..."
-    scanimage --format tiff --batch=temp/$todayandnow.p%04d.tiff \
-            --resolution 150 --batch-prompt --progress \
-            -l 0 -t 0 -x 210 -y 295
-
-    echo "Reduce the weight of the images"
-    #for scanfile in temp/$todayandnow.*.tiff; do
-    #    scanfilebase=$(basename "$scanfile")
-    #    convert "$scanfile" "temp/$scanfilebase.jpg"
-    #done
-    ##convert big-image.jpg -strip -quality 90 .jpg
-    batch_convert_to_jpg "$todayandnow"
-
-    echo "Convert the scanned documents into pdf"
-    #convert temp/$todayandnow.*.jpg $DEST/myawesome_scan_$todayandnow.pdf && \
-    convert_jpg_to_pdf "$todayandnow"
-
-    echo "Remove temporary scanned tiff files"
-    #rm temp/$todayandnow*.jpg
-    #rm temp/$todayandnow*.tiff
-
-}
-
-function upload_scannedpages(){
-
-    ORIGINAL_FOLDER=$PWD
-    echo "Current folder is $ORIGINAL_FOLDER"
-
-    echo "Moving into the $DEST folder"
-    cd $DEST
-
-    echo "Uploading scanned documents. No downloading"
-    grive -u
-
-    echo "Get back to original folder"
-    cd $ORIGINAL_FOLDER
-}
-
-function interactive_scan(){
-
-    until [[ $REPLY =~ ^[Nn]$ ]]
-    do
-        scan_pages
-        read -s -p "Scan another document ? [y/N]: " REPLY
-    done
-
-    # Upload the files to Google Drive
-    upload_scannedpages
-
-}
-
+# Start the interactive scan
 interactive_scan
 
 # End of script
