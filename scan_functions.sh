@@ -200,14 +200,15 @@ function upload_scannedpages(){
     ORIGINAL_FOLDER=$PWD
     echo "Current folder is $ORIGINAL_FOLDER"
 
-    echo "Moving into the $DEST folder"
-    cd $DEST
+    #echo "Moving into the $DEST folder"
+    #cd $DEST
 
     echo "Uploading scanned documents. No downloading"
-    grive -u
+    #grive -u
+    rclone copy -P temp/dest scans_home_extended:/scans/xubuntu_laptop/scans
 
-    echo "Get back to original folder"
-    cd $ORIGINAL_FOLDER
+    #echo "Get back to original folder"
+    #cd $ORIGINAL_FOLDER
 }
 
 function interactive_scan(){
