@@ -27,7 +27,11 @@ docker-build: Dockerfile
 
 docker-run:
 	# docker run -it --rm --device /dev/bus/usb:/dev/bus/usb:rwm -v $(PWD):/myApp -v $(PWD)/config:/config --network bridge fullbright/scannerserver:$(DOCKER_IMAGE_VERSION) /bin/bash
-	docker run -it --rm --privileged -v /dev:/dev --network bridge fullbright/scannerserver:latest /bin/bash
+	docker run -it --rm --privileged \
+		-v $(PWD)/temp/:/myApp/temp/ \
+		-v /dev:/dev --network bridge \
+		-v ~/.config/rclone/rclone.conf:/root/.config/rclone/rclone.conf
+		fullbright/scannerserver:latest /bin/bash
 
 docker-startapp:
 	# docker run -it --rm --device /dev/bus/usb:/dev/bus/usb:rwm -v $(PWD):/myApp -v $(PWD)/config:/config fullbright/scannerserver:$(DOCKER_IMAGE_VERSION) ./start_scan.sh
