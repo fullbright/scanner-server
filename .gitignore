@@ -109,6 +109,9 @@ temp/**/*.jpg
 temp/**/*.gif
 temp/**/*.pdf
 temp/**/*.tiff
+temp/**/*.tiff.part
+temp/**/.grive
+temp/**/.grive_state
 
 
 !temp/dest/.gitkeep
