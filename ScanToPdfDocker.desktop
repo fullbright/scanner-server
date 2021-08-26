@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Start Scan Docker
+Comment=Starts a program that scans my document into the cloud using docker
+Exec=sh -c 'cd /home/sergio/dev/scanbutton && make docker-run-prd'
+Icon=window-next
+Path=
+Terminal=true
+StartupNotify=false
