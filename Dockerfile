@@ -11,6 +11,7 @@ RUN apt-get install -y rclone sane sane-utils xsane imagemagick
 
 # Copy the code inside
 COPY . /myApp
+COPY ./config/etc/ImageMagick-6/policy.xml /etc/ImageMagick-6/policy.xml
 
 # Run few debug commands
 RUN sane-find-scanner
