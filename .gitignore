@@ -108,6 +108,7 @@ temp/**/*.png
 temp/**/*.jpg
 temp/**/*.gif
 temp/**/*.pdf
+temp/**/*.tiff
 
 
 !temp/dest/.gitkeep
