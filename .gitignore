@@ -104,4 +104,11 @@ venv.bak/
 .mypy_cache/
 
 # temp directory
-temp/
+temp/**/*.png
+temp/**/*.jpg
+temp/**/*.gif
+temp/**/*.pdf
+
+
+!temp/dest/.gitkeep
+!temp/.gitkeep
