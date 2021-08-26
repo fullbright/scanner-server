@@ -1,7 +1,10 @@
 from ubuntu:latest
 
+ENV TZ=Europe/Paris
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 RUN apt-get update 
-RUN apt-get install -y rclone sane sane-utils libsane-extras xsane
+RUN apt-get install -y rclone sane sane-utils xsane imagemagick
 
 # Setup rclone
 
